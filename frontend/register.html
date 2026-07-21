@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartTask Register</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:'Segoe UI',sans-serif;
+    }
+
+    body{
+        height:100vh;
+        background:url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600') no-repeat center center/cover;
+
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .register-card{
+
+        width:450px;
+
+        background:rgba(255,255,255,0.15);
+
+        backdrop-filter:blur(15px);
+
+        border-radius:20px;
+
+        padding:35px;
+
+        color:white;
+
+        box-shadow:0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    .logo{
+        text-align:center;
+        margin-bottom:25px;
+    }
+
+    .logo i{
+        font-size:55px;
+        color:#ffd43b;
+    }
+
+    .logo h2{
+        margin-top:10px;
+        font-weight:bold;
+    }
+
+    .form-control{
+        border-radius:12px;
+        padding:12px;
+    }
+
+    .btn-register{
+        width:100%;
+        background:#198754;
+        color:white;
+        border:none;
+        border-radius:12px;
+        padding:12px;
+        font-size:18px;
+        font-weight:bold;
+    }
+
+    .btn-register:hover{
+        background:#157347;
+    }
+
+    a{
+        color:#ffd43b;
+        text-decoration:none;
+        font-weight:bold;
+    }
+
+    a:hover{
+        text-decoration:underline;
+    }
+
+</style>
+
+
+
+
+</head>
+
+
+
+<body>
+
+<div class="register-card">
+
+<div class="logo">
+    <i class="fas fa-user-plus"></i>
+    <h2>Create Account</h2>
+    <p>Join SmartTask Today</p>
+</div>
+
+<form>
+
+    <div class="mb-3">
+        <label>Full Name</label>
+        <input type="text"
+        class="form-control"
+        placeholder="Enter your full name">
+    </div>
+
+    <div class="mb-3">
+        <label>Email Address</label>
+        <input type="email"
+        class="form-control"
+        placeholder="Enter your email">
+    </div>
+
+    <div class="mb-3">
+        <label>Password</label>
+        <input type="password"
+        class="form-control"
+        placeholder="Create password">
+    </div>
+
+    <div class="mb-3">
+        <label>Confirm Password</label>
+        <input type="password"
+        class="form-control"
+        placeholder="Confirm password">
+    </div>
+
+    <button type="submit" class="btn-register">
+        <i class="fas fa-user-check"></i>
+        Register
+    </button>
+
+    <div class="text-center mt-4">
+        Already have an account?
+        <a href="login.html">Login</a>
+    </div>
+
+</form>
+
+</div>
+
+<script>
+document.querySelector('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const fullName = document.querySelector('input[type="text"]').value;
+  const email = document.querySelector('input[type="email"]').value;
+  const passwords = document.querySelectorAll('input[type="password"]');
+  if (passwords[0].value !== passwords[1].value) {
+    alert("Passwords don't match");
+    return;
+  }
+  const res = await fetch('/api/auth/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fullName, email, password: passwords[0].value })
+  });
+  if (res.ok) {
+    alert('Account created — please log in');
+    window.location.href = 'login.html';
+  } else {
+    const data = await res.json();
+    alert(data.error);
+  }
+});
+</script>
+
+</body>
+</html>

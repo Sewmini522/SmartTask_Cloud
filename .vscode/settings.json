@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/8614a635-a764-4b71-ae0b-85c61bdbe99f/resourceGroups/smarttask-rg/providers/Microsoft.Web/sites/smarttask-app-sewmini",
+    "appService.deploySubpath": "."
+}
